@@ -1,0 +1,31 @@
+{
+  "name": "reloadjs",
+  "version": "1.0.0",
+  "description": "NodeJS implementation of the RFC 6940",
+  "main": "reload.js",
+  "scripts": {
+    "start": "node reload.js"
+  },
+  "author": "THALES",
+  "license": "SEE LICENSE IN license.md",
+  "dependencies": {
+    "asn1js": "^2.0.21",
+    "big-integer": "^1.6.32",
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "node-forge": "^0.7.5",
+    "node-ipc": "^9.1.1",
+    "node-turn": "0.0.1",
+    "readline-sync": "^1.4.9",
+    "sdp-transform": "^2.4.1",
+    "smart-buffer": "^4.0.1",
+    "socketio": "^1.0.0",
+    "stun": "^1.2.0",
+    "tls": "0.0.1",
+    "wrtc": "^0.1.6",
+    "xml-parser": "^1.2.1",
+    "minimist": "^1.2.0"
+  },
+  "_where": "lib"
+}

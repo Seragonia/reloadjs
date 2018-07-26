@@ -1,0 +1,21 @@
+{
+  "logOptions": {
+      "debug": true,
+      "info": true,
+      "error": true,
+      "warning": true
+    },
+  "logTypes": {
+      "statistics": true,
+      "topology": true
+    },
+    "selfSignedCertificate": {
+      "CN": "reloadjs",
+      "CNa": "fr",
+      "ST": "france",
+      "LN": "Cholet",
+      "ON": "test",
+      "OU": "test",
+      "multipleNodeID": 5
+    }
+}
