@@ -2,9 +2,7 @@
 
 RELOAD.js is a partial implementation of **[RFC 6940](https://tools.ietf.org/html/rfc6940)**. It mainly implements signalling technologies (Attach, ICE, Bootstrapping, Discovering, CHORD).
 
-[![BSDv2](https://img.shields.io/badge/licence-BSD-green.svg)]
-[![NPM >= 5.6.0](https://img.shields.io/badge/npm-%3E%3D5.6.0-yellowgreen.svg)]
-[![Node >= 8.11.3](https://img.shields.io/badge/node-%3E%3D8.11.3-blue.svg)]
+[![MPLv2 License](https://img.shields.io/badge/licence-BSD-green.svg)](https://github.com/Seragonia/reloadjs/blob/master/LICENSE)   [![MPLv2 License](https://img.shields.io/badge/npm-%3E%3D5.6.0-yellowgreen.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.fr.html)   [![MPLv2 License](https://img.shields.io/badge/node-%3E%3D8.11.3-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.fr.html)
 
 ## Goals
 
