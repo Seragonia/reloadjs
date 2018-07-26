@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay xmlns="urn:ietf:params:xml:ns:p2p:config-base">
+  <configuration instance-name="testOverlay.com0" sequence="22"
+    expiration="2023-10-10T07:00:00Z">
+    <topology-plugin>TEST</topology-plugin>
+    <node-id-length>32</node-id-length>
+    <root-cert>-----BEGIN CERTIFICATE-----
+MIICNzCCAaACCQC5KR9fUrV3HDANBgkqhkiG9w0BAQUFADBgMQswCQYDVQQGEwJJ
+VDEOMAwGA1UECAwFSXRhbHkxDzANBgNVBAcMBlRyZW50bzEdMBsGA1UECgwUVW5p
+dmVyc2l0eSBvZiBUcmVudG8xETAPBgNVBAMMCHVuaXRuLml0MB4XDTEzMDQwNjE2
+NDc1MFoXDTIzMDQwNDE2NDc1MFowYDELMAkGA1UEBhMCSVQxDjAMBgNVBAgMBUl0
+YWx5MQ8wDQYDVQQHDAZUcmVudG8xHTAbBgNVBAoMFFVuaXZlcnNpdHkgb2YgVHJl
+bnRvMREwDwYDVQQDDAh1bml0bi5pdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEA3HltyyBxfPAYrMYYrKaZ89W7P2LabwR4SIV8xazw+R+eKx0d0IipCpOWsL2r
+WSKxZqEXxIEl426nKYXOqiI/Yw/q5EyJovfvfhDW5IsyaTJoljj226v6SOkPHGuF
+i51TWv3YQQln0lIjrLBOR8QYHwm7FpvWsX1QEX7LP8hC5g0CAwEAATANBgkqhkiG
+9w0BAQUFAAOBgQB2IyRiL6Rmt6FrjlQJ4WU5A1HbnKvCHZVrdPevCEPh1h5/HoZ9
+qhSss+24ifeLlj6CFH1T88oPhS1jvxFdJERKvLQXN9T+nuSEustZNGmMgiMCuSC4
+ehYrMjMtsnYoN1zZ71H5mZ6YIJrpyEg5qjQetax8Opm3hnTKjMqBsBqhbg==
+-----END CERTIFICATE-----
+    </root-cert>
+    <enrollment-server>https://example.org</enrollment-server>
+    <self-signed-permitted digest="sha1">false
+    </self-signed-permitted>
+    <turn-density>20</turn-density>
+    <!--<bootstrap-node address="127.0.1.1" port="6084" />-->
+    <bootstrap-node address="224.0.10.10" port="6084" />
+    <clients-permitted> false </clients-permitted>
+    <no-ice>false</no-ice>
+    <mandatory-extension>urn:ietf:params:xml:ns:p2p:diagnostics
+    </mandatory-extension>
+    <max-message-size>15000</max-message-size>
+    <initial-ttl>6</initial-ttl>
+    <overlay-reliability-timer>1000</overlay-reliability-timer>
+    <overlay-link-protocol>TLS</overlay-link-protocol>
+    <configuration-signer>47112162e84c69ba</configuration-signer>
+    <kind-signer>47112162e84c69ba</kind-signer>
+    <required-kinds>
+      <kind-block>
+        <kind name="CERTIFICATE_BY_NODE">
+          <data-model>ARRAY</data-model>
+          <access-control>NODE-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="CERTIFICATE_BY_USER">
+          <data-model>ARRAY</data-model>
+          <access-control>USER-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="23">
+          <data-model>SINGLE</data-model>
+          <access-control>NODE-MATCH</access-control>
+          <max-count>1</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="TURN-SERVICE">
+          <data-model>SINGLE</data-model>
+          <access-control>NODE-MULTIPLE</access-control>
+          <max-node-multiple>5</max-node-multiple>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="SIP-REGISTRATION" id="1">
+          <data-model>DICTIONARY</data-model>
+          <access-control>USER-NODE-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="42">
+          <data-model>ARRAY</data-model>
+          <access-control>USER-MATCH</access-control>
+          <max-count>2</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="79">
+          <data-model>DICTIONARY</data-model>
+          <access-control>USER-NODE-MATCH</access-control>
+          <max-count>2</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+    </required-kinds>
+  </configuration>
+  <signature algorithm="rsa-sha1">
+    BWkABWYwggViMIIDSgIJAN1xpn2fZ2kQMA0GCSqGSIb3DQEBBQUAMHMxHDAaBgNVBAo
+    TE1JFTE9BRCBUZXN0IE5ldHdvcmsxDzANBgNVBAcTBk1lcmFubzELMAkGA1UECBMCQl
+    oxCzAJBgNVBAYTAklUMSgwJgYDVQQDEx9PdmVybGF5IENlcnRpZmljYXRpb24gQXV0a
+    G9yaXR5MB4XDTEyMDIyMzA4NDkxM1oXDTIyMDIyMDA4NDkxM1owczEcMBoGA1UEChMT
+    UkVMT0FEIFRlc3QgTmV0d29yazEPMA0GA1UEBxMGTWVyYW5vMQswCQYDVQQIEwJCWjE
+    LMAkGA1UEBhMCSVQxKDAmBgNVBAMTH092ZXJsYXkgQ2VydGlmaWNhdGlvbiBBdXRob3
+    JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC9BFPKSusvJzonJ1Sd2
+    lGIHesZKan1XGpZgnX41CmcM16QFt4G1pcr2t+3dWmmg8eAcKRt/DEXpwfnEzG9Di+A
+    TRvXqQWlO/cEDc+6+a0MacNl4TcRLWkEcU+BTiI3/FUQUDmjzux70CjArHjsbzehY7H
+    7y27dmzhnIbBVsLnkHkgmeOsZ4UvQExbPbIketUywLhIv9gr11nKzhD1NirzLWf3v3N
+    jdtrQDfigX5K6SGmIy5Sq+ePvSdHcGWWFkSCuHQ5GKaD90tSv7thwlMaXSbfrCHCQB1
+    4cwAffV+OLc2seYJXGq81E2RhBEg4rp57hTODyw6bR2uKiwOrxBGbApNPCdBdjyp6Sh
+    o08cbgv00VW+SMiI1H+VPtlyRStoFrIFsmCT18XDY/ix/RNw/VeW3t9W9+hmhw00oxo
+    60EFH5QCBvzbTDHPyJZ1e11+eCgLMAxBaIo33RnaznczV7wagl1QnkDue+pll+hRWq3
+    BTj9KcSPqJxKYPFRW8BTAHg6N7PIS+J5MrfIyQrcffizQGuyyAIK/XHbDmTnj5wG43W
+    ggD9F/Nz5hBA9Htxs3zfMKF6y61hDn/s5N39hx4jMKY8sSFOvks/Ei/K8fk8DgO+XR4
+    mTpaUNxejdTYILiljQ9tzzdfkStJTHk/2VIy3Xes7u3q/i4HQV6BYUKk3KDUowIDAQA
+    BMA0GCSqGSIb3DQEBBQUAA4ICAQBlcde804yH1dOulNjnD4g9ZWOlbuDe2XdMB6c/M5
+    3znB/H1gV0GwhpAi9UdiLKGKpVcg0MdrGc2xy9YGtDICssAH1Qy6RY8K6O0gGdFtCt0
+    +jtvXlaQgzHW3bZOOBOYXm/7rsRMMri54ehvQz0kB0zSUSe9Tty2idZpOE8sK05Gc7o
+    pOtfjKXxTlrCShfaLieFQmvPik3UwgFCjfL59Uh55N02FCIIVhvogDbocmGxi0UADMN
+    iaRq0nrWsigsZ8pbRXvNkX1jPbHuSKLIT1kozMhjUwvrdE7u+YVb+h9jd4V/ikEcBhp
+    RWUeGgL5XXfnt2SoNSc3cOAWlUSH0c6N0rplzZPl1MJfd4lIsV705+pAInhl9Tr/8gU
+    X38+A3ZZwk/nIhYzNH7ik9vapnYZCgAv7nm2OE93TDJuxsSCIRuPXtzCBzvv2S1y+n/
+    rW4j2DaguZcmK3iLL2kCCERcTZEucvjmbinEy4rJTMwmspcf0/FlAKeZnRfq9Sa1ha8
+    7vawOfYXtHAiVnRF73Z7Zu1BC8CYmUPNEiCJCNm+YlL8FXoc3qfTi6G1VxNJN+d4k0V
+    s/gbzID/w9yervUZpjdLEY+3qqiTMOqYjKZmlvxNXpHMwlPCd6ttW9hRerNGttvluzt
+    NOF58Vfz8zUBWsy6otPAjFLOqk+L+YNm/LAlvmRyAIBAQAWAhTQjAS32ZtxBU7FQK0R
+    mTvfJBM2/AIAilbfz9O8JCOXwpwrsOunCQKKn/UbGegqdwNGKfZ5sbU6lgWGwEnrKzW
+    CKh92+kr7EFVyuKTaJPN1NzZcd70nB6f4LGFdoZftJx2lYEDsf/I1fKksJ+2i+TWTah
+    tkF9FjtBCOAydRG/1OARIB9/djTVFhgHoM7vWoIposB0OMROlApxYIKfZ5O6bZKcCRF
+    xqghtdLUfQuVbvjsgG7DmIF+qrr+k9PdOLE7pq0CLLKC4wmfDg8C/XtshR/QpscYKv7
+    aaoET6gnhL1eBrGi8lspLsuXqjL05ov/4paomw0/Hfmr3YCLV5HuMdm6XlgRMQE94hZ
+    a2mqA7JdTQeTvPaVaQxyIUfgfwboT3i+zVwhzYbW/5nlLT+NSK3OXaSVTSWbZbG9diV
+    4L+uTGrQzcZBrziAzTQoPK4GacIfP722fvAGdTPZl4l0QodMUFuEEtBA+j7wSwo+Qmw
+    agCCZpks8CFq0ggp91UjfHdl9+0fOBLNER5JI6JIha6gI7DhIsEh4YWJqTsUd8K9kA3
+    KkmrxEyHCNauGv8izpZUQmKMQ4t/lf3HFXDdoQXkYFmt2R9b9gt6SbbAnjiyOcIw9fE
+    siWFK1qa66wUdzX2zYcnMDrglySZXFU6+T0OCXdUP7UoOeW0326ug3ShP9KJoPOOkFP
+    1Sr0HxcblDB9yrCsUtSNEj3pA=
+  </signature>
+  <configuration instance-name="testOverlay.com1" sequence="22"
+    expiration="2023-10-10T07:00:00Z">
+    <topology-plugin>TEST</topology-plugin>
+    <node-id-length>16</node-id-length>
+    <root-cert>-----BEGIN CERTIFICATE-----
+MIICNzCCAaACCQC5KR9fUrV3HDANBgkqhkiG9w0BAQUFADBgMQswCQYDVQQGEwJJ
+VDEOMAwGA1UECAwFSXRhbHkxDzANBgNVBAcMBlRyZW50bzEdMBsGA1UECgwUVW5p
+dmVyc2l0eSBvZiBUcmVudG8xETAPBgNVBAMMCHVuaXRuLml0MB4XDTEzMDQwNjE2
+NDc1MFoXDTIzMDQwNDE2NDc1MFowYDELMAkGA1UEBhMCSVQxDjAMBgNVBAgMBUl0
+YWx5MQ8wDQYDVQQHDAZUcmVudG8xHTAbBgNVBAoMFFVuaXZlcnNpdHkgb2YgVHJl
+bnRvMREwDwYDVQQDDAh1bml0bi5pdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEA3HltyyBxfPAYrMYYrKaZ89W7P2LabwR4SIV8xazw+R+eKx0d0IipCpOWsL2r
+WSKxZqEXxIEl426nKYXOqiI/Yw/q5EyJovfvfhDW5IsyaTJoljj226v6SOkPHGuF
+i51TWv3YQQln0lIjrLBOR8QYHwm7FpvWsX1QEX7LP8hC5g0CAwEAATANBgkqhkiG
+9w0BAQUFAAOBgQB2IyRiL6Rmt6FrjlQJ4WU5A1HbnKvCHZVrdPevCEPh1h5/HoZ9
+qhSss+24ifeLlj6CFH1T88oPhS1jvxFdJERKvLQXN9T+nuSEustZNGmMgiMCuSC4
+ehYrMjMtsnYoN1zZ71H5mZ6YIJrpyEg5qjQetax8Opm3hnTKjMqBsBqhbg==
+-----END CERTIFICATE-----
+    </root-cert>
+    <root-cert>-----BEGIN CERTIFICATE-----
+MIIChjCCAe+gAwIBAgIBADANBgkqhkiG9w0BAQ0FADBgMQswCQYDVQQGEwJmcjEP
+MA0GA1UECAwGZnJhbmNlMQ0wCwYDVQQKDAR0ZXN0MREwDwYDVQQDDAhyZWxvYWRq
+czEPMA0GA1UEBwwGQ2hvbGV0MQ0wCwYDVQQLDAR0ZXN0MB4XDTE4MDYyNzA3NTk0
+N1oXDTE5MDYyNzA3NTk0N1owYDELMAkGA1UEBhMCZnIxDzANBgNVBAgMBmZyYW5j
+ZTENMAsGA1UECgwEdGVzdDERMA8GA1UEAwwIcmVsb2FkanMxDzANBgNVBAcMBkNo
+b2xldDENMAsGA1UECwwEdGVzdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA
+1vQMeu+Fo2GBhosdz8jsqZX7CpWfU6c8p2ak76B/SV+feWjOqXFiFjl9pJV/Enud
+rm+tCCJznQZLlCw00IuHlqZEPf1ahEUP9ebbw9dE7FD/Ik0Px95HPNi/mlXjJBgD
+CWHxo1VSvxeCpUr0S5GxLiD8HkhvQntIgXwq8VQZDYsCAwEAAaNQME4wHQYDVR0O
+BBYEFCMyFmru126HAaZnS7shoG5GFIG9MB8GA1UdIwQYMBaAFCMyFmru126HAaZn
+S7shoG5GFIG9MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQENBQADgYEAlSjsesux
+U6CCyAUC9QpoD1uveBoEMNZ9Ys/lZOEOL2kGYQh5RjvVB5nnl8mFFUYKUUiuU2hD
+dfPJQE9tFT30JbU7N1zinDEQ3fzq06GeoopHJ3HhNYzZjVBtJ8zVcD8zGtvP4xON
+7bWK+KXgFXyspVhcj0wDFvPsmMfz4exd0QU=
+-----END CERTIFICATE-----
+    </root-cert>
+    <enrollment-server>https://example.org</enrollment-server>
+    <self-signed-permitted digest="sha1">false
+    </self-signed-permitted>
+    <turn-density>20</turn-density>
+    <!--<bootstrap-node address="127.0.1.1" port="6084" />-->
+    <bootstrap-node address="192.168.1.18" port="6084" />
+    <bootstrap-node address="51.38.176.180" port="6084" />
+    <chord:chord-update-interval>200</chord:chord-update-interval>
+    <chord:chord-ping-interval>5</chord:chord-ping-interval>
+    <clients-permitted> false </clients-permitted>
+    <no-ice>false</no-ice>
+    <mandatory-extension>urn:ietf:params:xml:ns:p2p:diagnostics
+    </mandatory-extension>
+    <max-message-size>15000</max-message-size>
+    <initial-ttl>6</initial-ttl>
+    <overlay-reliability-timer>1000</overlay-reliability-timer>
+    <overlay-link-protocol>TLS</overlay-link-protocol>
+    <configuration-signer>47112162e84c69ba</configuration-signer>
+    <kind-signer>47112162e84c69ba</kind-signer>
+    <required-kinds>
+      <kind-block>
+        <kind name="CERTIFICATE_BY_NODE">
+          <data-model>ARRAY</data-model>
+          <access-control>NODE-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="CERTIFICATE_BY_USER">
+          <data-model>ARRAY</data-model>
+          <access-control>USER-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="23">
+          <data-model>SINGLE</data-model>
+          <access-control>NODE-MATCH</access-control>
+          <max-count>1</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="TURN-SERVICE">
+          <data-model>SINGLE</data-model>
+          <access-control>NODE-MULTIPLE</access-control>
+          <max-node-multiple>5</max-node-multiple>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind name="SIP-REGISTRATION" id="1">
+          <data-model>DICTIONARY</data-model>
+          <access-control>USER-NODE-MATCH</access-control>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="42">
+          <data-model>ARRAY</data-model>
+          <access-control>USER-MATCH</access-control>
+          <max-count>2</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+      <kind-block>
+        <kind id="79">
+          <data-model>DICTIONARY</data-model>
+          <access-control>USER-NODE-MATCH</access-control>
+          <max-count>2</max-count>
+          <max-size>20</max-size>
+        </kind>
+        <kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+      </kind-block>
+    </required-kinds>
+  </configuration>
+  <signature algorithm="rsa-sha1">
+    BWkABWYwggViMIIDSgIJAN1xpn2fZ2kQMA0GCSqGSIb3DQEBBQUAMHMxHDAaBgNVBAo
+    TE1JFTE9BRCBUZXN0IE5ldHdvcmsxDzANBgNVBAcTBk1lcmFubzELMAkGA1UECBMCQl
+    oxCzAJBgNVBAYTAklUMSgwJgYDVQQDEx9PdmVybGF5IENlcnRpZmljYXRpb24gQXV0a
+    G9yaXR5MB4XDTEyMDIyMzA4NDkxM1oXDTIyMDIyMDA4NDkxM1owczEcMBoGA1UEChMT
+    UkVMT0FEIFRlc3QgTmV0d29yazEPMA0GA1UEBxMGTWVyYW5vMQswCQYDVQQIEwJCWjE
+    LMAkGA1UEBhMCSVQxKDAmBgNVBAMTH092ZXJsYXkgQ2VydGlmaWNhdGlvbiBBdXRob3
+    JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC9BFPKSusvJzonJ1Sd2
+    lGIHesZKan1XGpZgnX41CmcM16QFt4G1pcr2t+3dWmmg8eAcKRt/DEXpwfnEzG9Di+A
+    TRvXqQWlO/cEDc+6+a0MacNl4TcRLWkEcU+BTiI3/FUQUDmjzux70CjArHjsbzehY7H
+    7y27dmzhnIbBVsLnkHkgmeOsZ4UvQExbPbIketUywLhIv9gr11nKzhD1NirzLWf3v3N
+    jdtrQDfigX5K6SGmIy5Sq+ePvSdHcGWWFkSCuHQ5GKaD90tSv7thwlMaXSbfrCHCQB1
+    4cwAffV+OLc2seYJXGq81E2RhBEg4rp57hTODyw6bR2uKiwOrxBGbApNPCdBdjyp6Sh
+    o08cbgv00VW+SMiI1H+VPtlyRStoFrIFsmCT18XDY/ix/RNw/VeW3t9W9+hmhw00oxo
+    60EFH5QCBvzbTDHPyJZ1e11+eCgLMAxBaIo33RnaznczV7wagl1QnkDue+pll+hRWq3
+    BTj9KcSPqJxKYPFRW8BTAHg6N7PIS+J5MrfIyQrcffizQGuyyAIK/XHbDmTnj5wG43W
+    ggD9F/Nz5hBA9Htxs3zfMKF6y61hDn/s5N39hx4jMKY8sSFOvks/Ei/K8fk8DgO+XR4
+    mTpaUNxejdTYILiljQ9tzzdfkStJTHk/2VIy3Xes7u3q/i4HQV6BYUKk3KDUowIDAQA
+    BMA0GCSqGSIb3DQEBBQUAA4ICAQBlcde804yH1dOulNjnD4g9ZWOlbuDe2XdMB6c/M5
+    3znB/H1gV0GwhpAi9UdiLKGKpVcg0MdrGc2xy9YGtDICssAH1Qy6RY8K6O0gGdFtCt0
+    +jtvXlaQgzHW3bZOOBOYXm/7rsRMMri54ehvQz0kB0zSUSe9Tty2idZpOE8sK05Gc7o
+    pOtfjKXxTlrCShfaLieFQmvPik3UwgFCjfL59Uh55N02FCIIVhvogDbocmGxi0UADMN
+    iaRq0nrWsigsZ8pbRXvNkX1jPbHuSKLIT1kozMhjUwvrdE7u+YVb+h9jd4V/ikEcBhp
+    RWUeGgL5XXfnt2SoNSc3cOAWlUSH0c6N0rplzZPl1MJfd4lIsV705+pAInhl9Tr/8gU
+    X38+A3ZZwk/nIhYzNH7ik9vapnYZCgAv7nm2OE93TDJuxsSCIRuPXtzCBzvv2S1y+n/
+    rW4j2DaguZcmK3iLL2kCCERcTZEucvjmbinEy4rJTMwmspcf0/FlAKeZnRfq9Sa1ha8
+    7vawOfYXtHAiVnRF73Z7Zu1BC8CYmUPNEiCJCNm+YlL8FXoc3qfTi6G1VxNJN+d4k0V
+    s/gbzID/w9yervUZpjdLEY+3qqiTMOqYjKZmlvxNXpHMwlPCd6ttW9hRerNGttvluzt
+    NOF58Vfz8zUBWsy6otPAjFLOqk+L+YNm/LAlvmRyAIBAQAWAhTQjAS32ZtxBU7FQK0R
+    mTvfJBM2/AIAilbfz9O8JCOXwpwrsOunCQKKn/UbGegqdwNGKfZ5sbU6lgWGwEnrKzW
+    CKh92+kr7EFVyuKTaJPN1NzZcd70nB6f4LGFdoZftJx2lYEDsf/I1fKksJ+2i+TWTah
+    tkF9FjtBCOAydRG/1OARIB9/djTVFhgHoM7vWoIposB0OMROlApxYIKfZ5O6bZKcCRF
+    xqghtdLUfQuVbvjsgG7DmIF+qrr+k9PdOLE7pq0CLLKC4wmfDg8C/XtshR/QpscYKv7
+    aaoET6gnhL1eBrGi8lspLsuXqjL05ov/4paomw0/Hfmr3YCLV5HuMdm6XlgRMQE94hZ
+    a2mqA7JdTQeTvPaVaQxyIUfgfwboT3i+zVwhzYbW/5nlLT+NSK3OXaSVTSWbZbG9diV
+    4L+uTGrQzcZBrziAzTQoPK4GacIfP722fvAGdTPZl4l0QodMUFuEEtBA+j7wSwo+Qmw
+    agCCZpks8CFq0ggp91UjfHdl9+0fOBLNER5JI6JIha6gI7DhIsEh4YWJqTsUd8K9kA3
+    KkmrxEyHCNauGv8izpZUQmKMQ4t/lf3HFXDdoQXkYFmt2R9b9gt6SbbAnjiyOcIw9fE
+    siWFK1qa66wUdzX2zYcnMDrglySZXFU6+T0OCXdUP7UoOeW0326ug3ShP9KJoPOOkFP
+    1Sr0HxcblDB9yrCsUtSNEj3pA=
+  </signature>
+	<configuration instance-name="testOverlay.com2" sequence="22"
+		expiration="2023-10-10T07:00:00Z">
+		<topology-plugin>TEST</topology-plugin>
+		<node-id-length>16</node-id-length>
+		<root-cert>-----BEGIN CERTIFICATE-----
+MIICNzCCAaACCQC5KR9fUrV3HDANBgkqhkiG9w0BAQUFADBgMQswCQYDVQQGEwJJ
+VDEOMAwGA1UECAwFSXRhbHkxDzANBgNVBAcMBlRyZW50bzEdMBsGA1UECgwUVW5p
+dmVyc2l0eSBvZiBUcmVudG8xETAPBgNVBAMMCHVuaXRuLml0MB4XDTEzMDQwNjE2
+NDc1MFoXDTIzMDQwNDE2NDc1MFowYDELMAkGA1UEBhMCSVQxDjAMBgNVBAgMBUl0
+YWx5MQ8wDQYDVQQHDAZUcmVudG8xHTAbBgNVBAoMFFVuaXZlcnNpdHkgb2YgVHJl
+bnRvMREwDwYDVQQDDAh1bml0bi5pdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEA3HltyyBxfPAYrMYYrKaZ89W7P2LabwR4SIV8xazw+R+eKx0d0IipCpOWsL2r
+WSKxZqEXxIEl426nKYXOqiI/Yw/q5EyJovfvfhDW5IsyaTJoljj226v6SOkPHGuF
+i51TWv3YQQln0lIjrLBOR8QYHwm7FpvWsX1QEX7LP8hC5g0CAwEAATANBgkqhkiG
+9w0BAQUFAAOBgQB2IyRiL6Rmt6FrjlQJ4WU5A1HbnKvCHZVrdPevCEPh1h5/HoZ9
+qhSss+24ifeLlj6CFH1T88oPhS1jvxFdJERKvLQXN9T+nuSEustZNGmMgiMCuSC4
+ehYrMjMtsnYoN1zZ71H5mZ6YIJrpyEg5qjQetax8Opm3hnTKjMqBsBqhbg==
+-----END CERTIFICATE-----
+		</root-cert>
+    <root-cert>-----BEGIN CERTIFICATE-----
+MIICNzCCAaACCQC5KR9fUrV3HDANBgkqhkiG9w0BAQUFADBgMQswCQYDVQQGEwJJ
+VDEOMAwGA1UECAwFSXRhbHkxDzANBgNVBAcMBlRyZW50bzEdMBsGA1UECgwUVW5p
+dmVyc2l0eSBvZiBUcmVudG8xETAPBgNVBAMMCHVuaXRuLml0MB4XDTEzMDQwNjE2
+NDc1MFoXDTIzMDQwNDE2NDc1MFowYDELMAkGA1UEBhMCSVQxDjAMBgNVBAgMBUl0
+YWx5MQ8wDQYDVQQHDAZUcmVudG8xHTAbBgNVBAoMFFVuaXZlcnNpdHkgb2YgVHJl
+bnRvMREwDwYDVQQDDAh1bml0bi5pdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEA3HltyyBxfPAYrMYYrKaZ89W7P2LabwR4SIV8xazw+R+eKx0d0IipCpOWsL2r
+WSKxZqEXxIEl426nKYXOqiI/Yw/q5EyJovfvfhDW5IsyaTJoljj226v6SOkPHGuF
+i51TWv3YQQln0lIjrLBOR8QYHwm7FpvWsX1QEX7LP8hC5g0CAwEAATANBgkqhkiG
+9w0BAQUFAAOBgQB2IyRiL6Rmt6FrjlQJ4WU5A1HbnKvCHZVrdPevCEPh1h5/HoZ9
+qhSss+24ifeLlj6CFH1T88oPhS1jvxFdJERKvLQXN9T+nuSEustZNGmMgiMCuSC4
+ehYrMjMtsnYoN1zZ71H5mZ6YIJrpyEg5qjQetax8Opm3hnTKjMqBsBqhbg==
+-----END CERTIFICATE-----
+		</root-cert>
+    <root-cert>-----BEGIN CERTIFICATE-----
+MIICNzCCAaACCQC5KR9fUrV3HDANBgkqhkiG9w0BAQUFADBgMQswCQYDVQQGEwJJ
+VDEOMAwGA1UECAwFSXRhbHkxDzANBgNVBAcMBlRyZW50bzEdMBsGA1UECgwUVW5p
+dmVyc2l0eSBvZiBUcmVudG8xETAPBgNVBAMMCHVuaXRuLml0MB4XDTEzMDQwNjE2
+NDc1MFoXDTIzMDQwNDE2NDc1MFowYDELMAkGA1UEBhMCSVQxDjAMBgNVBAgMBUl0
+YWx5MQ8wDQYDVQQHDAZUcmVudG8xHTAbBgNVBAoMFFVuaXZlcnNpdHkgb2YgVHJl
+bnRvMREwDwYDVQQDDAh1bml0bi5pdDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEA3HltyyBxfPAYrMYYrKaZ89W7P2LabwR4SIV8xazw+R+eKx0d0IipCpOWsL2r
+WSKxZqEXxIEl426nKYXOqiI/Yw/q5EyJovfvfhDW5IsyaTJoljj226v6SOkPHGuF
+i51TWv3YQQln0lIjrLBOR8QYHwm7FpvWsX1QEX7LP8hC5g0CAwEAATANBgkqhkiG
+9w0BAQUFAAOBgQB2IyRiL6Rmt6FrjlQJ4WU5A1HbnKvCHZVrdPevCEPh1h5/HoZ9
+qhSss+24ifeLlj6CFH1T88oPhS1jvxFdJERKvLQXN9T+nuSEustZNGmMgiMCuSC4
+ehYrMjMtsnYoN1zZ71H5mZ6YIJrpyEg5qjQetax8Opm3hnTKjMqBsBqhbg==
+-----END CERTIFICATE-----
+		</root-cert>
+		<enrollment-server>https://example.org</enrollment-server>
+		<self-signed-permitted digest="sha1">false
+		</self-signed-permitted>
+		<turn-density>20</turn-density>
+		<!--<bootstrap-node address="127.0.1.1" port="6084" />-->
+		<bootstrap-node address="224.0.10.10" port="6084" />
+		<clients-permitted> false </clients-permitted>
+		<no-ice>false</no-ice>
+		<mandatory-extension>urn:ietf:params:xml:ns:p2p:diagnostics
+		</mandatory-extension>
+		<max-message-size>15000</max-message-size>
+		<initial-ttl>6</initial-ttl>
+		<overlay-reliability-timer>1000</overlay-reliability-timer>
+		<overlay-link-protocol>TLS</overlay-link-protocol>
+		<configuration-signer>47112162e84c69ba</configuration-signer>
+		<kind-signer>47112162e84c69ba</kind-signer>
+		<required-kinds>
+			<kind-block>
+				<kind name="CERTIFICATE_BY_NODE">
+					<data-model>ARRAY</data-model>
+					<access-control>NODE-MATCH</access-control>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind name="CERTIFICATE_BY_USER">
+					<data-model>ARRAY</data-model>
+					<access-control>USER-MATCH</access-control>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind id="23">
+					<data-model>SINGLE</data-model>
+					<access-control>NODE-MATCH</access-control>
+					<max-count>1</max-count>
+					<max-size>20</max-size>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind name="TURN-SERVICE">
+					<data-model>SINGLE</data-model>
+					<access-control>NODE-MULTIPLE</access-control>
+					<max-node-multiple>5</max-node-multiple>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind name="SIP-REGISTRATION" id="1">
+					<data-model>DICTIONARY</data-model>
+					<access-control>USER-NODE-MATCH</access-control>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind id="42">
+					<data-model>ARRAY</data-model>
+					<access-control>USER-MATCH</access-control>
+					<max-count>2</max-count>
+					<max-size>20</max-size>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+			<kind-block>
+				<kind id="79">
+					<data-model>DICTIONARY</data-model>
+					<access-control>USER-NODE-MATCH</access-control>
+					<max-count>2</max-count>
+					<max-size>20</max-size>
+				</kind>
+				<kind-signature>VGhpcyBpcyBub3QgcmlnaHQhCg==</kind-signature>
+			</kind-block>
+		</required-kinds>
+	</configuration>
+	<signature algorithm="rsa-sha1">
+		BWkABWYwggViMIIDSgIJAN1xpn2fZ2kQMA0GCSqGSIb3DQEBBQUAMHMxHDAaBgNVBAo
+		TE1JFTE9BRCBUZXN0IE5ldHdvcmsxDzANBgNVBAcTBk1lcmFubzELMAkGA1UECBMCQl
+		oxCzAJBgNVBAYTAklUMSgwJgYDVQQDEx9PdmVybGF5IENlcnRpZmljYXRpb24gQXV0a
+		G9yaXR5MB4XDTEyMDIyMzA4NDkxM1oXDTIyMDIyMDA4NDkxM1owczEcMBoGA1UEChMT
+		UkVMT0FEIFRlc3QgTmV0d29yazEPMA0GA1UEBxMGTWVyYW5vMQswCQYDVQQIEwJCWjE
+		LMAkGA1UEBhMCSVQxKDAmBgNVBAMTH092ZXJsYXkgQ2VydGlmaWNhdGlvbiBBdXRob3
+		JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC9BFPKSusvJzonJ1Sd2
+		lGIHesZKan1XGpZgnX41CmcM16QFt4G1pcr2t+3dWmmg8eAcKRt/DEXpwfnEzG9Di+A
+		TRvXqQWlO/cEDc+6+a0MacNl4TcRLWkEcU+BTiI3/FUQUDmjzux70CjArHjsbzehY7H
+		7y27dmzhnIbBVsLnkHkgmeOsZ4UvQExbPbIketUywLhIv9gr11nKzhD1NirzLWf3v3N
+		jdtrQDfigX5K6SGmIy5Sq+ePvSdHcGWWFkSCuHQ5GKaD90tSv7thwlMaXSbfrCHCQB1
+		4cwAffV+OLc2seYJXGq81E2RhBEg4rp57hTODyw6bR2uKiwOrxBGbApNPCdBdjyp6Sh
+		o08cbgv00VW+SMiI1H+VPtlyRStoFrIFsmCT18XDY/ix/RNw/VeW3t9W9+hmhw00oxo
+		60EFH5QCBvzbTDHPyJZ1e11+eCgLMAxBaIo33RnaznczV7wagl1QnkDue+pll+hRWq3
+		BTj9KcSPqJxKYPFRW8BTAHg6N7PIS+J5MrfIyQrcffizQGuyyAIK/XHbDmTnj5wG43W
+		ggD9F/Nz5hBA9Htxs3zfMKF6y61hDn/s5N39hx4jMKY8sSFOvks/Ei/K8fk8DgO+XR4
+		mTpaUNxejdTYILiljQ9tzzdfkStJTHk/2VIy3Xes7u3q/i4HQV6BYUKk3KDUowIDAQA
+		BMA0GCSqGSIb3DQEBBQUAA4ICAQBlcde804yH1dOulNjnD4g9ZWOlbuDe2XdMB6c/M5
+		3znB/H1gV0GwhpAi9UdiLKGKpVcg0MdrGc2xy9YGtDICssAH1Qy6RY8K6O0gGdFtCt0
+		+jtvXlaQgzHW3bZOOBOYXm/7rsRMMri54ehvQz0kB0zSUSe9Tty2idZpOE8sK05Gc7o
+		pOtfjKXxTlrCShfaLieFQmvPik3UwgFCjfL59Uh55N02FCIIVhvogDbocmGxi0UADMN
+		iaRq0nrWsigsZ8pbRXvNkX1jPbHuSKLIT1kozMhjUwvrdE7u+YVb+h9jd4V/ikEcBhp
+		RWUeGgL5XXfnt2SoNSc3cOAWlUSH0c6N0rplzZPl1MJfd4lIsV705+pAInhl9Tr/8gU
+		X38+A3ZZwk/nIhYzNH7ik9vapnYZCgAv7nm2OE93TDJuxsSCIRuPXtzCBzvv2S1y+n/
+		rW4j2DaguZcmK3iLL2kCCERcTZEucvjmbinEy4rJTMwmspcf0/FlAKeZnRfq9Sa1ha8
+		7vawOfYXtHAiVnRF73Z7Zu1BC8CYmUPNEiCJCNm+YlL8FXoc3qfTi6G1VxNJN+d4k0V
+		s/gbzID/w9yervUZpjdLEY+3qqiTMOqYjKZmlvxNXpHMwlPCd6ttW9hRerNGttvluzt
+		NOF58Vfz8zUBWsy6otPAjFLOqk+L+YNm/LAlvmRyAIBAQAWAhTQjAS32ZtxBU7FQK0R
+		mTvfJBM2/AIAilbfz9O8JCOXwpwrsOunCQKKn/UbGegqdwNGKfZ5sbU6lgWGwEnrKzW
+		CKh92+kr7EFVyuKTaJPN1NzZcd70nB6f4LGFdoZftJx2lYEDsf/I1fKksJ+2i+TWTah
+		tkF9FjtBCOAydRG/1OARIB9/djTVFhgHoM7vWoIposB0OMROlApxYIKfZ5O6bZKcCRF
+		xqghtdLUfQuVbvjsgG7DmIF+qrr+k9PdOLE7pq0CLLKC4wmfDg8C/XtshR/QpscYKv7
+		aaoET6gnhL1eBrGi8lspLsuXqjL05ov/4paomw0/Hfmr3YCLV5HuMdm6XlgRMQE94hZ
+		a2mqA7JdTQeTvPaVaQxyIUfgfwboT3i+zVwhzYbW/5nlLT+NSK3OXaSVTSWbZbG9diV
+		4L+uTGrQzcZBrziAzTQoPK4GacIfP722fvAGdTPZl4l0QodMUFuEEtBA+j7wSwo+Qmw
+		agCCZpks8CFq0ggp91UjfHdl9+0fOBLNER5JI6JIha6gI7DhIsEh4YWJqTsUd8K9kA3
+		KkmrxEyHCNauGv8izpZUQmKMQ4t/lf3HFXDdoQXkYFmt2R9b9gt6SbbAnjiyOcIw9fE
+		siWFK1qa66wUdzX2zYcnMDrglySZXFU6+T0OCXdUP7UoOeW0326ug3ShP9KJoPOOkFP
+		1Sr0HxcblDB9yrCsUtSNEj3pA=
+	</signature>
+</overlay>
