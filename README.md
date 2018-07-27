@@ -11,9 +11,10 @@ The objective is to implement the technology in NodeJS in order to facilitate te
 ## Getting Started
 
 Take a look at the [Getting Started guide](https://github.com/Seragonia/reloadjs/wiki/Getting-Started). 
-By default, this implementation runs locally on a single machine. For more information, see the Getting Started Guide.
+By default, this implementation runs locally on a single machine. For more information, read the Getting Started Guide.
 
 **Quick start**
+
 The quickest way to get started with RELOAD.js is to run the following commands :
 ```bash
 > npm i
