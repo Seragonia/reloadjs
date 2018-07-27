@@ -46,7 +46,7 @@ If you want to change the configuration server URL or overlay name, take a look 
 ## Docs & Community
 
 * Visit the [Wiki](https://github.com/Seragonia/reloadjs/wiki)
-* Read the [RFC 6940](https://tools.ietf.org/html/rfc6940#section-6.5.3.1).
+* Read the [RFC 6940](https://tools.ietf.org/html/rfc6940).
 
 ## Security Notes
 
