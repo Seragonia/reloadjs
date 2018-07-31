@@ -48,7 +48,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     var c = this.getConnection(nodeID);
     return c ? c : false;
   }
-  connectTo(port, addr, options, callback) {
+  connectTo(port, addr, options, callback, onError) {
     let s = tls.connect(port, addr, options, function() {
       //Get certificate and add the connexion to the list of known peers
       var cert = '-----BEGIN CERTIFICATE-----\r\n' + s.getPeerCertificate(true).raw.toString('base64') + '\r\n-----END CERTIFICATE-----\r\n';
@@ -68,6 +68,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     });
     s.on('error', (err) => {
       out.warning('Failed to connect the bootstrapnode '+addr+':'+port+"\n => " + err);
+      onError(port, addr, options);
     });
     return s;
   }
@@ -240,7 +241,7 @@ module.exports.ConnectionManager = class ConnectionManager {
         }
         //Add Admitting peer in global space so we can remember it if
         //reload is started in client mode
-        if(!global.isOverlayInitiator)
+        if(!global.joined && !global.isOverlayInitiator)
           global.AP = m.id;
         return;
       }

@@ -109,92 +109,101 @@
 								</div>
 								<div class="content table-responsive table-full-width">
 									<!--<table class="table table-hover table-striped">
-										<thead>
-											<th>ID</th>
-											<th>PORT</th>
-										</thead>
-										<tbody class="pred">
-										</tbody>
-									</table>
+									<thead>
+									<th>ID</th>
+									<th>PORT</th>
+								</thead>
+								<tbody class="pred">
+							</tbody>
+						</table>
 
-									<table class="table table-hover table-striped">
-										<thead>
-											<th>ID</th>
-											<th>PORT</th>
-										</thead>
-										<tbody class="succ">
-										</tbody>
-									</table>-->
-									<canvas id="canvas" style="height:400px; width: 400px"></canvas>
-								</div>
-								<div class="footer">
-									<hr>
-									<div class="stats">
-										<i class="fa fa-history"></i> Mis à jour à
-										<b class="updated">???
-										</b>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="card">
-							<div class="header">
-								<h4 class="title">LOGS</h4>
-							</div>
-							<div class="content">
-								<div id="chartPreferences">
-									<div class="logs" id="logs" style="
-									width:100%;
-									overflow-y: scroll;
-									padding-left:15px;
-									background:#010101;
-									color:#fff;
-									border: 1px solid #111;
-									max-height:300px;
-									height:300px;
-									min-height:300px">
-									</div>
-									<!--<textarea name="textarea" class="logs"
-									   rows="10" cols="50" readonly="true" style="padding-left:15px;resize:none;background:#222;color:#fff;border-color:#111;"></textarea></div>
-								--><div class="footer">
-									<div class="legend">
-										<i class="fa fa-circle text-success"></i> INFO
-										<i class="fa fa-circle text-info"></i> DEBUG
-										<i class="fa fa-circle text-warning"></i> ERROR
-									</div>
-									<hr>
-									<div class="stats">
-										<i class="fa fa-history"></i> Mis à jour à
-										<b class="updatedLogs">???
-										</b>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+						<table class="table table-hover table-striped">
+						<thead>
+						<th>ID</th>
+						<th>PORT</th>
+					</thead>
+					<tbody class="succ">
+				</tbody>
+			</table>-->
+			<canvas id="canvas" style="height:400px; width: 400px"></canvas>
+		</div>
+		<div class="footer">
+			<hr>
+			<div class="stats">
+				<i class="fa fa-history"></i> Mis à jour à
+				<b class="updated">???
+				</b>
 			</div>
 		</div>
-		<footer class="footer">
-			<div class="container-fluid">
-				<nav class="pull-left">
-					<ul>
-						<li>
-							<a href="#">
-								&copy; <script>document.write(new Date().getFullYear())</script> Thales
-							</a>
-						</li>
-
-					</ul>
-				</nav>
-				<p class="copyright pull-right">
-					&copy; <script>document.write(new Date().getFullYear())</script> Thales
-				</p>
-			</div>
-		</footer>
 	</div>
+</div>
+</div>
+<div class="col-md-6">
+	<div class="card">
+		<div class="header">
+			<h4 class="title">LOGS</h4>
+		</div>
+		<div class="content">
+			<div id="chartPreferences">
+				<div class="logs" id="logs" style="
+				width:100%;
+				overflow-y: scroll;
+				padding-left:15px;
+				background:#010101;
+				color:#fff;
+				border: 1px solid #111;
+				max-height:300px;
+				height:300px;
+				min-height:300px">
+			</div>
+			<!--<textarea name="textarea" class="logs"
+			rows="10" cols="50" readonly="true" style="padding-left:15px;resize:none;background:#222;color:#fff;border-color:#111;"></textarea></div>
+		--><div class="footer">
+		<div class="legend">
+			<i class="fa fa-circle text-success"></i> INFO
+			<i class="fa fa-circle text-info"></i> DEBUG
+			<i class="fa fa-circle text-warning"></i> ERROR
+		</div>
+		<hr>
+		<div class="stats">
+			<i class="fa fa-history"></i> Mis à jour à
+			<b class="updatedLogs">???
+			</b>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+	<div class="card">
+		<div class="header">
+			<h4 class="title" id="AP">ADMITTING PEER : </h4>
+		</div>
+		<hr>
+		<div class="footer"></div>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer">
+	<div class="container-fluid">
+		<nav class="pull-left">
+			<ul>
+				<li>
+					<a href="#">
+						&copy; <script>document.write(new Date().getFullYear())</script> Thales
+					</a>
+				</li>
+
+			</ul>
+		</nav>
+		<p class="copyright pull-right">
+			&copy; <script>document.write(new Date().getFullYear())</script> Thales
+		</p>
+	</div>
+</footer>
+</div>
 </div>
 </body>
 
@@ -213,10 +222,10 @@ function updateTime(str) {
 
 
 function truncate(string){
-   if (string.length > 25)
-      return string.substring(0,25)+'...';
-   else
-      return string;
+	if (string.length > 25)
+	return string.substring(0,25)+'...';
+	else
+	return string;
 };
 
 var socket = io.connect(document.location.href);
@@ -225,6 +234,7 @@ socket.on('connect', function(data) {
 });
 socket.on('update', function(data) {
 	$('.nodeID').html(data.nodeid);
+	$('#AP').html('ADMITTING PEER: ' + data.AP);
 	$('.overlay').html(data.overlayname);
 	$('.ips').html('');
 	for(var addr of data.ips)
@@ -237,16 +247,16 @@ socket.on('update', function(data) {
 	for(var neighbor of data.neighbors.predecessors)
 	{
 		$('.pred').append('<tr> \
-			<td>'+neighbor+'</td>\
-			<td>'+'???'+'</td>\
+		<td>'+neighbor+'</td>\
+		<td>'+'???'+'</td>\
 		</tr>');
 	}
 	$('.succ').html('');
 	for(var successors of data.neighbors.successors)
 	{
 		$('.succ').append('<tr> \
-			<td>'+successors+'</td>\
-			<td>'+'???'+'</td>\
+		<td>'+successors+'</td>\
+		<td>'+'???'+'</td>\
 		</tr>');
 	}
 	drawNeighbors(data.nodeid, data.neighbors.predecessors, data.neighbors.successors);
@@ -322,19 +332,19 @@ function drawNeighbors(local, succ, pred)
 
 
 function hashCode(str) {
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-       hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
+	var hash = 0;
+	for (var i = 0; i < str.length; i++) {
+		hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	}
+	return hash;
 }
 
 function intToRGB(i){
-    var c = (i & 0x3498db)
-        .toString(16)
-        .toUpperCase();
+	var c = (i & 0x3498db)
+	.toString(16)
+	.toUpperCase();
 
-    return "00000".substring(0, 6 - c.length) + c;
+	return "00000".substring(0, 6 - c.length) + c;
 }
 
 function drawRect(x, y, text, isLocal)
@@ -363,23 +373,23 @@ function curveBetweenPoints(startX, startY, endX, endY, ctx) {
 	};
 
 	var cp2 = {
-			x: startX + ((endX - startX) / 4),
-			y: ctx.canvas.height
+		x: startX + ((endX - startX) / 4),
+		y: ctx.canvas.height
 	};
 
 	var cp3 = {
-		 x: 230+(endX-230)/2,
-		 y: startY -(startY-endY)/2
+		x: 230+(endX-230)/2,
+		y: startY -(startY-endY)/2
 	}
 
 	var cp4 = {
-		 x: 400,
-		 y: startY -(startY-endY)/endY
+		x: 400,
+		y: startY -(startY-endY)/endY
 	}
 
 	ctx.beginPath();
 	ctx.moveTo(startX, startY);
- 	ctx.bezierCurveTo(cp1.x, cp1.y, endX+50, cp1.y, endX+50, (startY+endY)/2);
+	ctx.bezierCurveTo(cp1.x, cp1.y, endX+50, cp1.y, endX+50, (startY+endY)/2);
 	ctx.moveTo(endX, endY);
 	ctx.bezierCurveTo(endX, endY, endX+50, endY, endX+50, (startY+endY)/2);
 	ctx.stroke();

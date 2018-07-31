@@ -196,6 +196,7 @@ module.exports = class Peer {
           interface: argv['i'],
           ips: global.ips,
           selfsigned: true,
+          AP: global.AP,
           neighbors: {
             successors: Array.from(global.topology.routing.successors),
             predecessors: Array.from(global.topology.routing.predecessors)
