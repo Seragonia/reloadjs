@@ -1,6 +1,6 @@
 # RELOAD.js
 
-RELOAD.js is a partial implementation of **[RFC 6940](https://tools.ietf.org/html/rfc6940)**. It mainly implements signalling technologies (Attach, ICE, Bootstrapping, Discovering, CHORD).
+RELOAD.js is a demo implementation of **[RFC 6940](https://tools.ietf.org/html/rfc6940)**. It mainly implements signalling technologies (Attach, ICE, Bootstrapping, Discovering, CHORD).
 
 [![MPLv2 License](https://img.shields.io/badge/licence-BSD-green.svg)](https://github.com/Seragonia/reloadjs/blob/master/LICENSE)   ![MPLv2 License](https://img.shields.io/badge/npm-%3E%3D5.6.0-yellowgreen.svg)   ![MPLv2 License](https://img.shields.io/badge/node-%3E%3D8.11.3-blue.svg)
 
@@ -20,7 +20,7 @@ The quickest way to get started with RELOAD.js is to run the following commands 
 > npm i
 > # Use this line to launch the first instance of RELOAD.js.
 > # You will need to run this command on a machine with an IP
-> # accessible by all future peers.
+> # Accessible by all future peers.
 > # Change [interface-name] as your want.
 > node reload.js -i [interface-name] --first
 ```
