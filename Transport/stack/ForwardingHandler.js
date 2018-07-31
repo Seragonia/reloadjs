@@ -99,6 +99,8 @@ module.exports.ForwardingHandler = class ForwardingHandler {
     //If local nodeID
     if(dest.id == global.nodeID[0].id)
       return true;
+    // if(dest.destinationType == 2)
+      // return true;
 
     //Handle cases where nodeID is unknown
     return global.topology.isLocalPeerResponsible(dest);

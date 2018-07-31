@@ -108,7 +108,7 @@
 									<p class="category">Successeurs/prédecesseurs</p>
 								</div>
 								<div class="content table-responsive table-full-width">
-									<table class="table table-hover table-striped">
+									<!--<table class="table table-hover table-striped">
 										<thead>
 											<th>ID</th>
 											<th>PORT</th>
@@ -124,7 +124,8 @@
 										</thead>
 										<tbody class="succ">
 										</tbody>
-									</table>
+									</table>-->
+									<canvas id="canvas" style="height:400px; width: 400px"></canvas>
 								</div>
 								<div class="footer">
 									<hr>
@@ -248,6 +249,7 @@ socket.on('update', function(data) {
 			<td>'+'???'+'</td>\
 		</tr>');
 	}
+	drawNeighbors(data.nodeid, data.neighbors.predecessors, data.neighbors.successors);
 	updateTime('updated');
 });
 
@@ -274,6 +276,114 @@ socket.on('log-war', function(data) {
 	updateTime('updatedLogs');
 });
 
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ctx.canvas.width  = 400;
+ctx.canvas.height = 400;
+
+drawNeighbors(null, null, null);
+
+function drawRouting() {
+	ctx.clearRect(0, 0, 400, 400);
+	ctx.beginPath();
+	ctx.fillStyle="transparent";
+	ctx.arc(400,200,200,0.5*Math.PI,1.5*Math.PI);
+	ctx.stroke();
+}
+
+function drawNeighbors(local, succ, pred)
+{
+	drawRouting();
+	if(local) {
+		drawRect(80, 185, local, true);
+	}
+	var base = 185;
+	var baseX = 80;
+	//predecessors
+	if(pred) {
+		for(var p of pred)
+		{
+			base -= 55;
+			baseX += 35;
+			drawRect(baseX, base, p, false);
+		}
+	}
+	base = 185;
+	baseX = 80;
+	if(succ) {
+		for(var s of succ)
+		{
+			base += 55;
+			baseX += 35;
+			drawRect(baseX, base, s, false);
+		}
+	}
+}
+
+
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+       hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+}
+
+function intToRGB(i){
+    var c = (i & 0x3498db)
+        .toString(16)
+        .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+}
+
+function drawRect(x, y, text, isLocal)
+{
+	ctx.fillStyle="#FFFFFF";
+	ctx.fillRect(x, y, 150, 30);
+	ctx.strokeStyle='#'+intToRGB(hashCode(text));
+	ctx.lineWidth = 2;
+	ctx.strokeRect(x, y, 150, 30);
+	//IDs
+	ctx.fillStyle="#000000";
+	ctx.font = "17px Courrier New";
+	ctx.fillText(text,x+8,y+21);
+	ctx.strokeStyle='#000000';
+	if(!isLocal)
+	{
+		ctx.fillStyle="#333333";
+		curveBetweenPoints(230, 200, x+150, y+15, ctx);
+	}
+}
+
+function curveBetweenPoints(startX, startY, endX, endY, ctx) {
+	var cp1 = {
+		x: startX,
+		y: startY
+	};
+
+	var cp2 = {
+			x: startX + ((endX - startX) / 4),
+			y: ctx.canvas.height
+	};
+
+	var cp3 = {
+		 x: 230+(endX-230)/2,
+		 y: startY -(startY-endY)/2
+	}
+
+	var cp4 = {
+		 x: 400,
+		 y: startY -(startY-endY)/endY
+	}
+
+	ctx.beginPath();
+	ctx.moveTo(startX, startY);
+ 	ctx.bezierCurveTo(cp1.x, cp1.y, endX+50, cp1.y, endX+50, (startY+endY)/2);
+	ctx.moveTo(endX, endY);
+	ctx.bezierCurveTo(endX, endY, endX+50, endY, endX+50, (startY+endY)/2);
+	ctx.stroke();
+}
 </script>
 
 <!--   Core JS Files   -->

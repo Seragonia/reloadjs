@@ -92,6 +92,17 @@ module.exports.ConnectionManager = class ConnectionManager {
     global.topology.pendingPing.add({id: nodeID.id, cpt: 0});
     //We need to periodically send ping so we can detect connection loss
     let pingInterval = setInterval(function(){
+      if(!global.topology.pendingPing.has)
+      var check = false;
+      for(var entry of global.topology.pendingPing)
+      {
+        if(entry.id == nodeID.id)
+          check = true;
+      }
+      if(!check) {
+        clearInterval(pingInterval);
+        return;
+      }
       out.debug('Send periodic ping to ' + nodeID.id);
       var ping = new PingRequest();
       var req = global.topology.messageBuilder.newMessage(ping, [new NodeID(nodeID.id)]);
@@ -137,6 +148,9 @@ module.exports.ConnectionManager = class ConnectionManager {
     }, global.instance.config["chord-update-interval"]*1000);
     //Also add the certificate to the keystore
     global.keyStore.addCertificate(new ReloadCertificate(cert, nodeID));
+    //Add to cache
+    if(socket.remoteAddress && socket.remotePort)
+      global.cache.addPeer({ name: { address: socket.remoteAddress, port: socket.remotePort } });
     return this.connections[this.connections.length-1];
   }
   removeConnection(socket) {
@@ -186,8 +200,13 @@ module.exports.ConnectionManager = class ConnectionManager {
       id: global.nodeID[0].id,
       cert: global.localCertificate.cert
     };
-    channel.send(JSON.stringify(msg));
-    channel.write = channel.send;
+    try {
+      channel.send(JSON.stringify(msg));
+      channel.write = channel.send;
+    } catch(err)
+    {
+      console.log(err);
+    }
   }
   ICEonMessage(channel, msg, rtc) {
     channel.write = channel.send;
@@ -240,7 +259,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     }
   }
   toBuffer(ab) {
-    var buf = new Buffer(ab.byteLength);
+    var buf = new Buffer.alloc(ab.byteLength);
     var view = new Uint8Array(ab);
     for (var i = 0; i < buf.length; ++i) {
         buf[i] = view[i];

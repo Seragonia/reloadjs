@@ -126,6 +126,7 @@ module.exports = class Bootstrap {
     var isConnected = false;
     for(var i = 0 ; i<list.length; i++)
     {
+      if(!list[i].name) continue;
       const port = list[i].name.port;
       const addr = list[i].name.address;
       if(isConnected) break;
@@ -138,8 +139,11 @@ module.exports = class Bootstrap {
         else
         {
           out.info('Connected to the bootstrap peer ('+addr+':'+port+')');
-          out.debug('Adding the bootstrap peer as a TURN server');
-          global.turns.push(addr);
+          if(addr != global.addr)
+          {
+            out.debug('Adding the bootstrap peer as a TURN server');
+            global.turns.push(addr);
+          }
           out.info('Sending attach request with the local node id.');
           //Attach request to the bootstrap peer
           global.topology.AttachService.attachTo(connection.socket, [connection.stack.nodeID, new ResourceID(addNodeID(t.nodeID.id))], true);

@@ -54,7 +54,6 @@ exports.generateSelfSignedCertificate = function(digest, subjectName, nodeIDLeng
     nodeIDTab.push(new NodeID(id));
     out.info("Calculated NODE-ID : " + id);
   }
-    console.log(nodeIDTab);
   // create a certification request (CSR)
   var csr = forge.pki.createCertificationRequest();
   csr.publicKey = keys.publicKey;

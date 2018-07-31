@@ -15,7 +15,7 @@ module.exports.ICE = class ICE {
     var pc;
     var ice =  [
       {
-        urls: ['stun:stun.l.google.com:19302']
+        urls: [global.userConf.global.stunServer1, global.userConf.global.stunServer2]
       }
     ];
     for(var ip of global.turns) {
@@ -65,7 +65,6 @@ module.exports.ICE = class ICE {
       global.connectionManager.ICEonMessage(channel, event.data, pc);
     }
     channel.onclose = function(event) {
-      console.log(event);
       global.connectionManager.ICEonClose(channel);
     }
     pc.createOffer().then(function(e) {
@@ -110,6 +109,7 @@ module.exports.ICE = class ICE {
           rtc.onicegatheringstatechange = function() {
             if (rtc.iceGatheringState === 'complete') {
               c(rtc);
+              return;
             }
           };
           rtc.ondatachannel = function(ev) {
@@ -121,7 +121,6 @@ module.exports.ICE = class ICE {
               global.connectionManager.ICEonMessage(channel, event.data, rtc);
             }
             channel.onclose = function(event) {
-              console.log(event);
               global.connectionManager.ICEonClose(channel);
             }
           };

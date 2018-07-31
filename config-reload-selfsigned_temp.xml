@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay xmlns="urn:ietf:params:xml:ns:p2p:config-base">
+  <configuration instance-name="reloadjs" sequence="22"
+    expiration="2023-10-10T07:00:00Z">
+    <topology-plugin>TEST</topology-plugin>
+    <node-id-length>16</node-id-length>
+    <enrollment-server>https://example.org</enrollment-server>
+    <self-signed-permitted digest="sha1">true</self-signed-permitted>
+    <turn-density>20</turn-density>
+    <bootstrap-node address="127.0.0.1" port="6084" />
+    <chord:chord-update-interval>200</chord:chord-update-interval>
+    <chord:chord-ping-interval>5</chord:chord-ping-interval>
+    <clients-permitted> false </clients-permitted>
+    <max-message-size>15000</max-message-size>
+    <initial-ttl>6</initial-ttl>
+  </configuration>
+</overlay>
