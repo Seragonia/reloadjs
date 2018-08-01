@@ -124,13 +124,16 @@ module.exports = class Bootstrap {
       rejectUnauthorized: false //TODO
     }
     var isConnected = false;
-    for(var i = 0 ; i<list.length; i++)
+    let test = new Array(list.length).fill(0);
+    for(let i = 0 ; i<list.length; i++)
     {
+      test[i]++;
+      if(!list[i].name) continue;
       const port = list[i].name.port;
       const addr = list[i].name.address;
       if(isConnected) break;
       let t = this;
-      let socket = global.connectionManager.connectTo(port, addr, options, function(connection) {
+      let callBack = function(connection) {
         if(isConnected)
         {
           socket.write('close', '');
@@ -138,14 +141,28 @@ module.exports = class Bootstrap {
         else
         {
           out.info('Connected to the bootstrap peer ('+addr+':'+port+')');
-          out.debug('Adding the bootstrap peer as a TURN server');
-          global.turns.push(addr);
+          if(addr != global.addr)
+          {
+            out.debug('Adding the bootstrap peer as a TURN server');
+            global.turns.push(addr);
+          }
           out.info('Sending attach request with the local node id.');
           //Attach request to the bootstrap peer
           global.topology.AttachService.attachTo(connection.socket, [connection.stack.nodeID, new ResourceID(addNodeID(t.nodeID.id))], true);
         }
         isConnected = true;
-      });
+      };
+      let onError = function (port, addr, options) {
+        if(!isConnected && test[i] < 6)
+        {
+          out.warning('Retrying in 3 seconds... ('+test[i]+'/5)');
+          test[i]++;
+          setTimeout(function(){global.connectionManager.connectTo(port, addr, options,callBack,onError)},3000);
+        }
+        return;
+      };
+
+      let socket = global.connectionManager.connectTo(port, addr, options, callBack, onError);
       client[i] = socket;
     }
   }

@@ -3,7 +3,6 @@
 //Dependencies
 const fs        = require('fs');
 const tls       = require('tls');
-const dns       = require('dns');
 const nodeIPC   = require('node-ipc');
 const net       = require('net');
 const https     = require('https');
@@ -38,15 +37,15 @@ module.exports = class Peer {
     var self = this;
     if(this.conf.global.forceLocalConfig == true)
     { //Read the local config file
-      try {
+      // try {
         this.instance.setXMLObject(xmlParser(String(
             fs.readFileSync('./config-reload-selfsigned.xml', 'utf8'))));
         out.info("Self signed certificate sucessfully loaded.");
         self.checkOverlay();
-      } catch(err) {
-        out.error("Failed to load the local certificate. Error : " + err);
-        return -1;
-      }
+      // } catch(err) {
+        // out.error("Failed to load the local certificate. Error : " + err);
+        // return -1;
+      // }
     }else{ //getting config file from overlay name + .well-known/reload-config
       //Try with https §4.6.1 RFC 6940 (Try only once)
       const options = {
@@ -144,9 +143,12 @@ module.exports = class Peer {
     var bootstrap = new Bootstrap(this.instance);
     //First checks if there is not already a cached list of
     //peer for this overlay (RFC6940 §11.4.)
-    if(this.instance.cache.exists === true)
+    if(global.cache.exists === true && argv['cache'])
     {
       out.info("Try connecting to the overlay using the cached bootstrap peer list...");
+      var list = [];
+      list = this.instance.config['bootstrap-node'].concat(global.cache.cache);
+      bootstrap.setBootstrapPeerList(list);
     }
     else
     {
@@ -170,6 +172,7 @@ module.exports = class Peer {
       console.log('Routing Table :\nSuccessors: ', global.topology.routing.successors);
       console.log('Predecessors: ', global.topology.routing.predecessors);
       console.log('Connections: ', global.connectionManager.connections.length);
+      console.log('Leaved Nodes: ', global.topology.routing.leavedNodes);
       console.log('==============');
     }, 2000);
     var express = require('express');
@@ -188,12 +191,12 @@ module.exports = class Peer {
       });
       setInterval(function(){
         var c = [];
-        //TODO : adapt with chord
         var infos = {
           nodeid: global.nodeID[0].id,
           interface: argv['i'],
           ips: global.ips,
           selfsigned: true,
+          AP: global.AP,
           neighbors: {
             successors: Array.from(global.topology.routing.successors),
             predecessors: Array.from(global.topology.routing.predecessors)

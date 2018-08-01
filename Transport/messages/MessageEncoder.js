@@ -35,10 +35,6 @@ module.exports = class MessageEncoder {
     var signer = global.cryptoHelper.newSigner();
     signer.update(buf);
     var signature = signer.sign();
-    //Check verify
-    /*var verify = crypto.createVerify('RSA-SHA1');
-    verify.update(buf);
-    console.log(verify.verify(global.localPublicKey, signature.digest));*/
 
     //Add all needed Generic Certificates
     var genCertificates = [];

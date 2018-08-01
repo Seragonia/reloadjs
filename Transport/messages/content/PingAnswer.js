@@ -16,10 +16,8 @@ module.exports = class PingAnswer extends Content {
   }
   serialize(buffer) {
     buffer.writeUInt8(this.message_code);
-    // this.message_body.number = ;
     buffer.writeUInt32BE(this.message_body.number);
     buffer.writeStringNT(this.message_body.time);
-
     return buffer;
   }
   static deSerialize(buffer) {

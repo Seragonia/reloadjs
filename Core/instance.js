@@ -47,7 +47,6 @@ module.exports = class Instance {
     this.nbOverlays    = 0;
     this.instanceName  = "";
     this.signature     = "";
-    this.cache         = null;
     this.sequence      = 0;
     this.cryptoHelper  = null;
 
@@ -167,7 +166,7 @@ module.exports = class Instance {
   }
 
   checkOverlayValidity() {
-    this.cache = new Cache(this.instanceName);
+    global.cache = new Cache(this.instanceName);
     //Verify the signature that follows the current overlay before to go further
     //use the instance name to detect the next <signature...> entry
     for(var key in this.XML.root.children) {
@@ -271,8 +270,13 @@ module.exports = class Instance {
       }
     }
     if(d["self-signed-permitted"]) {
-      this.config["self-signed-permitted"]["permitted"] = (d["self-signed-permitted"].content == true);
+      this.config["self-signed-permitted"]["permitted"] = (d["self-signed-permitted"].content == 'true');
       this.config["self-signed-permitted"]["digest"] = d["self-signed-permitted"].attributes["digest"];
+      if(JSON.parse(fs.readFileSync('./utils/config.json', 'utf-8')).global.forceLocalConfig == true && d["self-signed-permitted"].content == 'false')
+      {
+        out.error('Selfsigned certificates are not allowed by this overlay!');
+        process.exit();
+      }
       var port = Number.isInteger(argv['port']) ? argv['port'] : JSON.parse(fs.readFileSync('./utils/config.json', 'utf-8')).global.listenport;
       if(fs.existsSync('./Core/cache/'+this.instanceName+'-'+port+'.json'))
       {

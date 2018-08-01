@@ -1,37 +1,11 @@
 {
-  "topology":
-  {
-    "sucessorCacheSize": 3,
-    "predecessorCacheSize": 3
-  },
-  "message":
-  {
-    "useTLS": true,
-    "ignoreSSLErrors": true,
-    "maxretransmissions": 4,
-    "TLS_Passthrough": false,
-    "RetransmissionTime": 100000,
-    "fragmentSize": 12000
-  },
-  "storage":
-  {
-    "timestamps": true
-  },
-  "enroll":
-  {
-    "useDNS": true,
-    "DNSAdress": "8.8.8.8",
-    "enableHTTP": true,
-    "EnrollmentServer": "default"
-  },
   "global":
   {
       "listenport": 6084,
       "modeClient": false,
       "forceLocalConfig": true,
-      "allowPrivateIP": true,
-      "stunServer1": "stun1.l.google.com:19302",
-      "stunServer2": "stun2.l.google.com:19302",
+      "stunServer1": "stun:stun1.l.google.com:19302",
+      "stunServer2": "stun:stun2.l.google.com:19302",
       "overlayName": "localhost"
   }
 }

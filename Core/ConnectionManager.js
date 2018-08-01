@@ -48,7 +48,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     var c = this.getConnection(nodeID);
     return c ? c : false;
   }
-  connectTo(port, addr, options, callback) {
+  connectTo(port, addr, options, callback, onError) {
     let s = tls.connect(port, addr, options, function() {
       //Get certificate and add the connexion to the list of known peers
       var cert = '-----BEGIN CERTIFICATE-----\r\n' + s.getPeerCertificate(true).raw.toString('base64') + '\r\n-----END CERTIFICATE-----\r\n';
@@ -68,6 +68,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     });
     s.on('error', (err) => {
       out.warning('Failed to connect the bootstrapnode '+addr+':'+port+"\n => " + err);
+      onError(port, addr, options);
     });
     return s;
   }
@@ -92,6 +93,17 @@ module.exports.ConnectionManager = class ConnectionManager {
     global.topology.pendingPing.add({id: nodeID.id, cpt: 0});
     //We need to periodically send ping so we can detect connection loss
     let pingInterval = setInterval(function(){
+      if(!global.topology.pendingPing.has)
+      var check = false;
+      for(var entry of global.topology.pendingPing)
+      {
+        if(entry.id == nodeID.id)
+          check = true;
+      }
+      if(!check) {
+        clearInterval(pingInterval);
+        return;
+      }
       out.debug('Send periodic ping to ' + nodeID.id);
       var ping = new PingRequest();
       var req = global.topology.messageBuilder.newMessage(ping, [new NodeID(nodeID.id)]);
@@ -137,6 +149,9 @@ module.exports.ConnectionManager = class ConnectionManager {
     }, global.instance.config["chord-update-interval"]*1000);
     //Also add the certificate to the keystore
     global.keyStore.addCertificate(new ReloadCertificate(cert, nodeID));
+    //Add to cache
+    if(socket.remoteAddress && socket.remotePort)
+      global.cache.addPeer({ name: { address: socket.remoteAddress, port: socket.remotePort } });
     return this.connections[this.connections.length-1];
   }
   removeConnection(socket) {
@@ -186,8 +201,13 @@ module.exports.ConnectionManager = class ConnectionManager {
       id: global.nodeID[0].id,
       cert: global.localCertificate.cert
     };
-    channel.send(JSON.stringify(msg));
-    channel.write = channel.send;
+    try {
+      channel.send(JSON.stringify(msg));
+      channel.write = channel.send;
+    } catch(err)
+    {
+      console.log(err);
+    }
   }
   ICEonMessage(channel, msg, rtc) {
     channel.write = channel.send;
@@ -221,7 +241,7 @@ module.exports.ConnectionManager = class ConnectionManager {
         }
         //Add Admitting peer in global space so we can remember it if
         //reload is started in client mode
-        if(!global.isOverlayInitiator)
+        if(!global.joined && !global.isOverlayInitiator)
           global.AP = m.id;
         return;
       }
@@ -240,7 +260,7 @@ module.exports.ConnectionManager = class ConnectionManager {
     }
   }
   toBuffer(ab) {
-    var buf = new Buffer(ab.byteLength);
+    var buf = new Buffer.alloc(ab.byteLength);
     var view = new Uint8Array(ab);
     for (var i = 0; i < buf.length; ++i) {
         buf[i] = view[i];

@@ -81,6 +81,8 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
         rEntry.lastSuccessfullPing = new Date();
         this.rtable.add(rEntry);
         out.debug('(routing) Add node '+nodeID.id);
+        //TODO add entry in neighbor table (succ/pred)
+        // this.merge(nodeID, this, false, true);
       }
     } catch(err) {
       out.error('addNeighbor(): '+err);
@@ -276,43 +278,31 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
    * @return: Set(NodeID)
    */
   getNextHops(destination) {
-    console.log('destination: ', destination);
     for(var node of global.connectionManager.connections)
     {
       if(node.stack.nodeID.id && destination.id == node.stack.nodeID.id) {
-        console.log('1');
         return [this.getNode(node.stack.nodeID)];
       }
     }
     if(this.gotUpdatesFrom(destination)) {
-      console.log('2');
       return [this.getNode(destination)];
-
     }
     if(global.modeClient == true) {
-      console.log('3');
       return [global.AP];
     }
     if(this.successors.size == 0) {
-      console.log('4');
       return [global.nodeID[0]];
     }
-    console.log('a');
 
-      // console.log(ElementOfInterval(destination, new NodeID(this.getPredecessor(0)), global.nodeID[0], true));
     /*if(ElementOfInterval(destination, new NodeID(this.getPredecessor(0)), global.nodeID[0], true))
       return [global.nodeID[0]];*/
     for(var succ of this.successors) {
       if(ElementOfInterval(destination, global.nodeID[0], new NodeID(succ))) {
-        console.log(this.successors);
-        console.log('rtable: ', this.rtable, 'succ: ', succ);
-        console.log(this.getNode(new NodeID(succ)));
+
         return [new NodeID(this.getNode(new NodeID(succ)).id)];
       }
     }
-    console.log('b');
     var closest = this.getClosestPrecedingNode(destination);
-    console.log('dest:', destination, 'closest:', closest);
     return [new NodeID(closest)];
   }
   tryGetValue(nodeID) {
@@ -327,7 +317,6 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
     let distanceLoc = 9007199254740991;
     var nodeID = global.topology.routing.rtable[0] ? global.topology.routing.rtable[0].id : global.nodeID[0].id;
     global.topology.routing.rtable.forEach(function(rEntry) {
-      console.log('1: ', rEntry, '2: ', id);
       var distTemp = getDistance(new NodeID(rEntry.id), new NodeID(id));
       if(distTemp < distanceLoc) {
         id = rEntry.id;
@@ -355,7 +344,6 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
     var nodeIDIndex = array.indexOf(nodeID.id);
     var index = (next.size + (nodeIDIndex - 1)) % next.size;
     var closestIDNode = array[index];
-    console.log('closestIDNode:', closestIDNode);
     closestNode = this.getNode(closestIDNode);
     return closestNode;*/
   }
@@ -437,29 +425,28 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
   /**
    * Function called when receiving an UpdateReq
    */
-  merge(originator, updateReq, forceSendUpdate) {
+  merge(originator, updateReq, forceSendUpdate, noUpdate = false) {
     //try {
       if(!this.isAttached(originator))
-          out.debug('A none-attached node sent an update request to this node (' + originator.id + ')');
+        out.debug('A none-attached node sent an update request to this node (' + originator.id + ')');
       var totalUpdateList = new Set();
-      var validSuccessors = new Set();
-      var validPredecessors = new Set();
       if(this.leavedNodes.size > 0)
       {
-        if(!this.leavedNodes.has(originator.id))
-          totalUpdateList.add(originator.id);
+        if(this.leavedNodes.has(originator.id))
+          this.leavedNodes.delete(originator.id);
+        totalUpdateList.add(originator.id);
         for(var node of updateReq.successors) {
-          if(!this.leavedNodes.has(node)) {
-            validSuccessors.add(node);
-            totalUpdateList.add(node);
+          if(this.leavedNodes.has(node)) {
+            this.leavedNodes.delete(node)
           }
+          totalUpdateList.add(node);
         }
         for(var node of updateReq.predecessors)
         {
-          if(!this.leavedNodes.has(node)) {
-            validPredecessors.add(node);
-            totalUpdateList.add(node);
+          if(this.leavedNodes.has(node)) {
+            this.leavedNodes.delete(node)
           }
+          totalUpdateList.add(node);
         }
       } else {
         totalUpdateList.add(originator.id);
@@ -510,6 +497,19 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
         if(i == global.nodeID[0].id)
           totalUpdateList.delete(i);
 
+      //If there is more node in routing table, we can use them
+      for(var node of this.rtable)
+      {
+        if(!totalUpdateList.has(node))
+          totalUpdateList.add(node.id);
+      }
+
+      for(var node of global.connectionManager.connections)
+      {
+        if(!totalUpdateList.has(node.stack.nodeID.id))
+          totalUpdateList.add(node.stack.nodeID.id);
+      }
+
       var newPredecessors = this.neighborsFromTotal(totalUpdateList, false);
       var newSuccessors = this.neighborsFromTotal(totalUpdateList, true);
 
@@ -528,8 +528,7 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
           }
       this.predecessors = newPredecessors;
       this.successors = newSuccessors;
-
-      if(isThereChangement || forceSendUpdate)
+      if(isThereChangement || forceSendUpdate && !noUpdate)
       {
         out.debug('Merge: new approved neighbors, send updates to all.');
         this.sendUpdateToAllNeighbors();
@@ -647,6 +646,7 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
         {
           if(this.isAttached(new NodeID(neighbor)))
           {
+            out.debug('Send update to '+neighbor);
             var join = new UpdateAnswer();
             let req = global.topology.messageBuilder.newMessage(join, [new NodeID(neighbor)]);
             global.connectionManager.sendMessage(global.connectionManager.getConnection(new NodeID(neighbor)), req);
@@ -700,6 +700,13 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
         updateNeeded = true;
       }
     }
+    for(var val of global.topology.pendingPing)
+    {
+      if(leaveReq.id == val.id)
+      {
+        global.topology.pendingPing.delete(val);
+      }
+    }
 
     if(updateNeeded && !global.clientMode)
     {
@@ -717,7 +724,8 @@ module.exports.CHORDRoutingTable = class CHORDRoutingTable extends RoutingTable 
       if(item.id == id)
         return;
     }
-    this.leavedNodes.add(id);
+    //TODO handle bug with leaved nodes (not added in routing table if in leaved nodes list)
+    //this.leavedNodes.add(id);
   }
   isAttachedToAllNeighbors() {
     for(var suc of this.successors)

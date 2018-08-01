@@ -62,6 +62,15 @@ module.exports.MessageDispatcher = class MessageDispatcher {
         }
         case 0x17: //PingRequest
         {
+          var ips = new Set(message.content.message_body.ips);
+          for(var ip of message.content.message_body.ips)
+          {
+            var has = false;
+            for(var el of global.cache.cache)
+              if(el.name.address == ip || (el.name.address == ip && el.name.port == message.content.message_body.port)) has = true;
+            if(has || ip.startsWith('127.')) continue;
+            global.cache.addPeer({ name: { address: ip, port: message.content.message_body.port } });
+          }
           out.debug('Sending back ping.');
           var ping = new PingAnswer();
           let req4 = global.topology.messageBuilder.newMessage(ping, [new NodeID(distID)]);
@@ -95,6 +104,7 @@ module.exports.MessageDispatcher = class MessageDispatcher {
         }
         case 0x14: //UpdateAnswer
         {
+          out.info('UpdateAnswer received ('+distID+').');
           var sendUpdate = false;
           if(global.AP && distID == global.AP && !global.isOverlayInitiator && !global.joined)
             if(!global.topology.routing.isWaitForJoinAns(new NodeID(distID)))

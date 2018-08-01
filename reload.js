@@ -26,7 +26,6 @@ class RELOADjs {
   constructor() {
     global.clientsWeb = [];
     global.ips = [];
-    console.log('e');
     this.conf = JSON.parse(fs.readFileSync("./utils/config.json"));
     global.userConf = this.conf;
     this.peer = new Peer(this.conf);
@@ -69,6 +68,7 @@ if(!argv['i'] || argv['i']=="") {
       if(ifname === argv['i'] && 'IPv4' === iface.family)
       {
         reloadInstance.peer.localAddress = iface.address;
+        global.addr = iface.address;
         reloadInstance.run();
         return;
       }

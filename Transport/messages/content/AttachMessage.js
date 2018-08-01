@@ -6,7 +6,6 @@
 const MessageCode    = require('../message.js').MessageCode;
 const Content        = require('./Content.js');
 const SmartBuffer    = require('smart-buffer').SmartBuffer;
-const EncoderDecoder = require('../EncoderDecoder.js');
 
 
 exports.AttachMessage = class AttachMessage extends Content {

@@ -50,6 +50,7 @@ module.exports.AttachService = class AttachService {
         sdp: ans.content.message_body.candidates
       };
       ICE.connect(this.pcs[ans.header.transaction], answer);
+      this.pendingRequests.delete(ans.header.transaction);
     } else {
       out.info('Unwanted AttachAnswer received, dropping...');
     }
