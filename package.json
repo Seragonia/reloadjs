@@ -15,7 +15,7 @@
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "minimist": "^1.2.0",
-    "node-forge": "^0.7.5",
+    "node-forge": "^0.10.0",
     "node-ipc": "^9.1.1",
     "node-turn": "0.0.1",
     "readline-sync": "^1.4.9",
