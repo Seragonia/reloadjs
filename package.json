@@ -14,7 +14,7 @@
     "express": "^4.16.3",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.6",
     "node-forge": "^0.7.5",
     "node-ipc": "^9.1.1",
     "node-turn": "0.0.1",
