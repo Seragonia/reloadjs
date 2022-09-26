@@ -17,7 +17,7 @@
     "minimist": "^1.2.0",
     "node-forge": "^0.7.5",
     "node-ipc": "^9.1.1",
-    "node-turn": "0.0.1",
+    "node-turn": "0.0.6",
     "readline-sync": "^1.4.9",
     "sdp-transform": "^2.4.1",
     "smart-buffer": "^4.0.1",
